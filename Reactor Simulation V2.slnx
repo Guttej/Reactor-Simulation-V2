@@ -1,7 +1,0 @@
-<Solution>
-  <Configurations>
-    <Platform Name="x64" />
-    <Platform Name="x86" />
-  </Configurations>
-  <Project Path="Reactor Simulation V2/Reactor Simulation V2.vcxproj" />
-</Solution>
