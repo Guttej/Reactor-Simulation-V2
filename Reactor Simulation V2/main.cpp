@@ -4,10 +4,11 @@
 #include "materials.h"
 
 int main() {
-	
-	Nuclide U235 = { "U235", 235.044, 694.0, 582.0, 15.0, 2.42 };
 
-	std::cout << "Name: " << U235.name << " | Atomic Mass: " << U235.atomicMass << std::endl;
+	Material aluminum("aluminum", 2.699, {{ Nuclides::Al27, 1.0 }});
 
+	Material alSiAlloy("Al-Si Alloy", 2.66, { { Nuclides::Al27,0.95 },{ Nuclides::Si, 0.05 } });
+
+	std::cout << aluminum.GetConstituent() << " " << alSiAlloy.GetConstituent();
 	return 0;
 }

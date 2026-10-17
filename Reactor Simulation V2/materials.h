@@ -35,3 +35,21 @@ namespace Nuclides {
 	const Nuclide Xe135		{ "Xe-135",	134.907,	2.6e6,		0.0,	0.0,	0.0 };
 	const Nuclide Sm149		{ "Sm-149",	148.917,	4.1e4,		0.0,	0.0,	0.0 };
 }
+
+struct Constituent {
+	Nuclide nuclide;
+	double amount;				// weight fraction
+	double atomDensity = 0.0;	// N, atoms/cm^3 (calculated by Material)
+};
+
+class Material {
+private:
+	std::string name;
+	double density;								// g/cm^3
+	std::vector<Constituent> constituents;
+
+public:
+	Material(std::string n, double rho, std::vector<Constituent> parts);
+
+	double AtomDensity(std::string nuclideName) const;
+};
