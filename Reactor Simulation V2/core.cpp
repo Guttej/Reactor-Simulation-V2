@@ -50,7 +50,7 @@ void Core::BuildCore() {
 			this->volume = (4.0 / 3.0) * PI * userDoubleInput * userDoubleInput * userDoubleInput;
 			transitionFlag = true;
 		}
-		else if (this->shape == Shape::Sphere) {
+		else if (this->shape == Shape::Cube) {
 			this->volume = userDoubleInput * userDoubleInput * userDoubleInput;
 			transitionFlag = true;
 		}
