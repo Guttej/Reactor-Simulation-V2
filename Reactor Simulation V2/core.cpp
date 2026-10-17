@@ -54,6 +54,8 @@ void Core::BuildCore() {
 			this->volume = userDoubleInput * userDoubleInput * userDoubleInput;
 			transitionFlag = true;
 		}
+		// TODO: cylinder assumes height == radius; take R and H separately
+		//       once geometric buckling is added
 		else if (this->shape == Shape::Cylinder) {
 			this->volume = PI * userDoubleInput * userDoubleInput * userDoubleInput;
 			transitionFlag = true;
