@@ -51,5 +51,12 @@ private:
 public:
 	Material(std::string n, double rho, std::vector<Constituent> parts);
 
+	double SigmaA() const;
+	double SigmaS() const;
+	double SigmaF() const;
+	double NuSigmaF() const;
+	double MeanFreePathA() const;
+	double MeanFreePathS() const;
+
 	double AtomDensity(std::string nuclideName) const;
 };
