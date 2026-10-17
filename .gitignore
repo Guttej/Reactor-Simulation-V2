@@ -361,9 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/Reactor Simulation V2/Reactor Simulation V2.vcxproj
-/Reactor Simulation V2/Reactor Simulation V2.vcxproj.filters
-/Reactor Simulation V2.slnx
+/vcpkg/
 
 # AI-written reference code (not part of the portfolio)
 /AI Reference/
