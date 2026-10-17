@@ -9,6 +9,6 @@ int main() {
 
 	Material alSiAlloy("Al-Si Alloy", 2.66, { { Nuclides::Al27,0.95 },{ Nuclides::Si, 0.05 } });
 
-	std::cout << aluminum.GetConstituent() << " " << alSiAlloy.GetConstituent();
+	std::cout << aluminum.AtomDensity("Al-27") << " " << alSiAlloy.AtomDensity("Al-27");
 	return 0;
 }

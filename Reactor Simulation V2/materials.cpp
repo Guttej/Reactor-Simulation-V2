@@ -9,9 +9,11 @@ Material::Material(std::string n, double rho, std::vector<Constituent> parts) : 
 
 double Material::AtomDensity(std::string nuclideName) const {
 	
-	for (Constituent c : this->constituents) {
+	for (const Constituent& c : this->constituents) {
 		if (c.nuclide.name == nuclideName) {
 			return c.atomDensity;
 		}
 	}
+
+	return 0.0;
 }
