@@ -1,9 +1,22 @@
 #include "materials.h"
 
-Material::Material(std::string n, double rho, std::vector<Constituent> parts) : name(n), density(rho), constituents(parts) {
-	// N = amount * density * NA / Atomic Mass
-	for (Constituent& c : this->constituents) {
-		c.atomDensity = c.amount * rho * AVOGADRO / c.nuclide.atomicMass;
+Material::Material(std::string n, double rho, std::vector<Constituent> parts, FractionType type) : name(n), density(rho), constituents(parts) {
+	if (type == FractionType::ByWeight) {
+		// N = amount * density * NA / Atomic Mass
+		for (Constituent& c : this->constituents) {
+			c.atomDensity = c.amount * this->density * AVOGADRO / c.nuclide.atomicMass;
+		}
+	}
+	else
+	{
+		double moleculeMass = 0.0;
+		for (const Constituent& c : this->constituents) {
+			moleculeMass += c.amount * c.nuclide.atomicMass;
+		}
+		for (Constituent& c : this->constituents) {
+			c.atomDensity = c.amount * this->density * AVOGADRO / moleculeMass;
+
+		}
 	}
 }
 
@@ -34,7 +47,6 @@ double Material::SigmaS() const {
 	for (const Constituent& c : this->constituents) {
 		total += c.atomDensity * c.nuclide.sigmaS * BARN_TO_CM2;
 	}
-
 	return total;
 }
 

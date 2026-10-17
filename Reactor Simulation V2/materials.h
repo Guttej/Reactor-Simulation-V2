@@ -36,9 +36,14 @@ namespace Nuclides {
 	const Nuclide Sm149		{ "Sm-149",	148.917,	4.1e4,		0.0,	0.0,	0.0 };
 }
 
+enum class FractionType {
+	ByWeight,	// Fraction of the materials mass, ie. alloys
+	ByAtom		// Relative number of atoms, ie. H2O
+};
+
 struct Constituent {
 	Nuclide nuclide;
-	double amount;				// weight fraction
+	double amount;				// weight fraction or atom ratio
 	double atomDensity = 0.0;	// N, atoms/cm^3 (calculated by Material)
 };
 
@@ -49,7 +54,7 @@ private:
 	std::vector<Constituent> constituents;
 
 public:
-	Material(std::string n, double rho, std::vector<Constituent> parts);
+	Material(std::string n, double rho, std::vector<Constituent> parts, FractionType type);
 
 	double SigmaA() const;
 	double SigmaS() const;
