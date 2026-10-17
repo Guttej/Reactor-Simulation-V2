@@ -3,8 +3,8 @@
 
 double PI = 3.14159;
 
-Core::Core() : shape(Shape::None), volume(0.0), sixFactor{ 0.865, 0.80, 0.861, 0.799, 2.02, 1.04 } {}
-Core::Core(Shape s, double v) : shape(s), volume(v), sixFactor{ 0.865, 0.80, 0.861, 0.799, 2.02, 1.04 } {}
+Core::Core() : shape(Shape::None), volume(0.0), sixFactor{ 0.865, 0.80, 0.861, 0.799, 2.02, 1.04 }, keff(0.0) {}
+Core::Core(Shape s, double v) : shape(s), volume(v), sixFactor{ 0.865, 0.80, 0.861, 0.799, 2.02, 1.04 }, keff(0.0) {}
 
 Shape Core::GetShape() const { return this->shape; }
 double Core::GetVolume() const { return this->volume; }
@@ -47,14 +47,14 @@ void Core::BuildCore() {
 		std::cin >> userDoubleInput;
 
 		if (this->shape == Shape::Sphere) {
-			this->volume = (4.0 / 3.0) * PI * userDoubleInput;
+			this->volume = (4.0 / 3.0) * PI * userDoubleInput * userDoubleInput * userDoubleInput;
 			transitionFlag = true;
 		}
 		else if (this->shape == Shape::Sphere) {
 			this->volume = userDoubleInput * userDoubleInput * userDoubleInput;
 			transitionFlag = true;
 		}
-		else if (this->shape == Shape::Sphere) {
+		else if (this->shape == Shape::Cylinder) {
 			this->volume = PI * userDoubleInput * userDoubleInput * userDoubleInput;
 			transitionFlag = true;
 		}
