@@ -16,8 +16,8 @@ examples used as test cases.
 - **Six-factor formula** for k_eff:
   - ✅ Thermal utilization factor (f)
   - ✅ Reproduction factor (η)
-  - 🚧 Resonance escape probability (p) — in progress
-  - ⬜ Fast fission factor (ε), fast and thermal non-leakage (placeholder values)
+  - ✅ Resonance escape probability (p) 
+  - 🚧 Fast fission factor (ε), fast and thermal non-leakage (placeholder values) — in progress
 
 ## Roadmap
 
