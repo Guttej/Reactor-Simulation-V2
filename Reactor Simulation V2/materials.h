@@ -54,12 +54,19 @@ private:
 	std::vector<Constituent> constituents;
 
 public:
-	Material(std::string n, double rho, std::vector<Constituent> parts, FractionType type);
+	Material(std::string n, double rho, std::vector<Constituent> parts, FractionType type = FractionType::ByWeight);
 
+	// Getters
+	std::string GetName() const;
+	double GetDensity() const;
+
+	// Macroscopic Cross Sections (cm^-1)
 	double SigmaA() const;
 	double SigmaS() const;
 	double SigmaF() const;
 	double NuSigmaF() const;
+
+	// Mean Free Path (cm): Average distance traveled before interaction
 	double MeanFreePathA() const;
 	double MeanFreePathS() const;
 
