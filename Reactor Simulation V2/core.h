@@ -16,6 +16,7 @@ struct CoreMaterial
 
 class Core
 {
+public:
 	enum SixFactor {
 		FastNonLeakage,
 		ResonanceEscape,
@@ -52,4 +53,5 @@ public:
 
 	double ThermalUtilizationFactor() const;
 	double CoreReproductionFactor() const;
+	double CoreSlowingDownPower() const;
 };

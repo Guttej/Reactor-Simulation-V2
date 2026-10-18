@@ -120,3 +120,12 @@ double Core::CoreReproductionFactor() const {
 		return totalNuSigmaF / totalSigmaA;	// Returns Reproduction Factor of the core.
 	}
 }
+
+double Core::CoreSlowingDownPower() const {
+	double tmpDouble = 0.0;
+
+	for (const CoreMaterial& cm : this->coreMaterials) {
+		tmpDouble += cm.material.SlowingDownPower() * cm.volumeFraction;
+	}
+	return tmpDouble;
+}

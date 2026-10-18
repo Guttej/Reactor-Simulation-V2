@@ -29,6 +29,7 @@ int main() {
 	std::cout << "Core 3: " << core3.CoreReproductionFactor() << std::endl;
 	std::cout << std::endl << std::endl;
 	std::cout << water.GetName() << " slowing down power (cm^-1): " << water.SlowingDownPower() << std::endl;
+	std::cout << "Core 2 slowing down power: " << core2.CoreSlowingDownPower() << std::endl;
 
 	return 0;
 }
