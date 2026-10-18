@@ -11,6 +11,9 @@ double Core::GetVolume() const { return this->volume; }
 
 void Core::SetShape(Shape s) { this->shape = s; }
 void Core::SetVolume(double v) { this->volume = v; }
+void Core::AddCoreMaterial(const Material& m, double v) {
+	this->coreMaterials.push_back({m, v});
+}
 
 void Core::BuildCore() {
 	int userIntInput;
@@ -76,4 +79,23 @@ void Core::UpdateCore() {
 	this->keff = tmpDouble;
 }
 
+double Core::ThermalUtilizationFactor() const {
+	double fuelAbsorption = 0.0;
+	double totalAbsorption = 0.0;
 
+	for (const CoreMaterial& cm : this->coreMaterials) {
+		totalAbsorption += cm.material.SigmaA() * cm.volumeFraction;
+	}
+	for (const CoreMaterial& cm : this->coreMaterials) {
+		if (cm.material.GetRole() == Role::Fuel) {
+			fuelAbsorption += cm.material.SigmaA() * cm.volumeFraction;
+		}
+	}
+
+	if (totalAbsorption == 0.0) {
+		return 0.0;
+	}
+	else {
+		return fuelAbsorption / totalAbsorption;
+	}
+}
