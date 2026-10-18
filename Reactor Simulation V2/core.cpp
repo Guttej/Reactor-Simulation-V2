@@ -71,12 +71,15 @@ void Core::BuildCore() {
 }
 
 void Core::UpdateCore() {
-	double tmpDouble = 1.0;
+	double tmpDouble = 1.0; 
 
-	for (int i = 0; i < 6; ++i) {
-		tmpDouble *= sixFactor[i];
-	}
-	this->keff = tmpDouble;
+	// Six Factor Formula
+	sixFactor[ThermalUtilization] = ThermalUtilizationFactor();	// Updates core's ThermalUtilization Factor
+	sixFactor[Reproduction] = CoreReproductionFactor();			// Updates core's Reproduction Factor
+	for (int i = 0; i < NumFactors; ++i) {
+		tmpDouble *= sixFactor[i];		// Calculates keff
+	}	
+	this->keff = tmpDouble;				// Updates keff 
 }
 
 double Core::ThermalUtilizationFactor() const {
@@ -97,5 +100,23 @@ double Core::ThermalUtilizationFactor() const {
 	}
 	else {
 		return fuelAbsorption / totalAbsorption;
+	}
+}
+
+double Core::CoreReproductionFactor() const {
+	double totalNuSigmaF = 0.0;	// Running total of NuSigmaF of all fuel material 
+	double totalSigmaA = 0.0;	// Running total of SigmaA of all fuel material
+	for (const CoreMaterial& cm : this->coreMaterials) {
+		if (cm.material.GetRole() == Role::Fuel) {	// Checks to see if material is fuel
+			totalNuSigmaF += cm.material.NuSigmaF() * cm.volumeFraction;	// Adds current material NuSigmaF to total
+			totalSigmaA += cm.material.SigmaA() * cm.volumeFraction;		// Adds current material SigmaA to total
+		}
+	}
+
+	if (totalSigmaA == 0.0) {
+		return 0.0;							// Returns 0 in case of div by zero
+	}
+	else {
+		return totalNuSigmaF / totalSigmaA;	// Returns Reproduction Factor of the core.
 	}
 }

@@ -16,6 +16,16 @@ struct CoreMaterial
 
 class Core
 {
+	enum SixFactor {
+		FastNonLeakage,
+		ResonanceEscape,
+		ThermalNonLeakage,
+		ThermalUtilization,
+		Reproduction,
+		FastFission,
+		NumFactors
+	};
+
 private:
 	Shape shape;
 	double volume;
@@ -41,4 +51,5 @@ public:
 	void UpdateCore();
 
 	double ThermalUtilizationFactor() const;
+	double CoreReproductionFactor() const;
 };

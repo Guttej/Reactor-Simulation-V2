@@ -20,7 +20,12 @@ int main() {
 
 	std::cout << "Core with only fuel: " << core1.ThermalUtilizationFactor() << std::endl;
 	std::cout << "Core with fuel and water: " << core2.ThermalUtilizationFactor() << std::endl;
-	std::cout << "core with fuel, water, and poison: " << core3.ThermalUtilizationFactor() << std::endl;
+	std::cout << "Core with fuel, water, and poison: " << core3.ThermalUtilizationFactor() << std::endl;
+	std::cout << std::endl << std::endl;
+	std::cout << "Reproduction Factor Comparisons. Fuel Reproduction Factor: "<< fuel.ReproductionFactor() << std::endl;
+	std::cout << "Core 1: " << core1.CoreReproductionFactor() << std::endl;
+	std::cout << "Core 2: " << core2.CoreReproductionFactor() << std::endl;
+	std::cout << "Core 3: " << core3.CoreReproductionFactor() << std::endl;
 
 	return 0;
 }
