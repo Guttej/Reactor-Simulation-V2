@@ -1,4 +1,18 @@
 #include "materials.h"
+#include <cmath>
+
+double Nuclide::Xi() const {
+	double ratio = (atomicMass - 1) / (atomicMass + 1);
+	double alpha = ratio * ratio;
+
+	if (alpha == 0) {
+		return 1.0;
+	}
+	else {
+		return (1 + ((alpha * std::log(alpha)) / (1 - alpha)));
+	}
+}
+
 // Constructors
 Material::Material(std::string n, double rho, std::vector<Constituent> parts, Role r, FractionType type) : name(n), density(rho), constituents(parts), role(r) {
 	if (type == FractionType::ByWeight) {
@@ -86,4 +100,14 @@ double Material::ReproductionFactor() const{
 	else {
 		return NuSigmaF() / SigmaA();
 	}
+}
+
+double Material::SlowingDownPower() const {
+	double tmpDouble = 0.0;
+
+	for (const Constituent& c : this->constituents) {
+		tmpDouble += (c.nuclide.Xi() * c.atomDensity * c.nuclide.sigmaS * BARN_TO_CM2);
+	}
+
+	return tmpDouble;
 }

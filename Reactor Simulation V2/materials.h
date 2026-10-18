@@ -14,6 +14,8 @@ struct Nuclide {
 	double sigmaF;			// microscopic fission cross section (barns)
 	double sigmaS;			// microscopic scattering cross section (barns)
 	double nu;				// Average neutrons released per fission
+
+	double Xi() const;		// Calculates the Average Logarithmic Energy Decrement
 };
 
 // Nuclide data library: thermal (0.0253 eV) values.
@@ -81,5 +83,6 @@ public:
 
 	double AtomDensity(std::string nuclideName) const;
 	double ReproductionFactor() const;
+	double SlowingDownPower() const;
 };
 
