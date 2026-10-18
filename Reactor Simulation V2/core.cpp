@@ -75,11 +75,12 @@ void Core::UpdateCore() {
 
 	// Six Factor Formula
 	sixFactor[ThermalUtilization] = ThermalUtilizationFactor();	// Updates core's ThermalUtilization Factor
-	sixFactor[Reproduction] = CoreReproductionFactor();			// Updates core's Reproduction Factor
+	sixFactor[Reproduction] = ReproductionFactor();				// Updates core's Reproduction Factor
+	sixFactor[ResonanceEscape] = ResonanceEscapeProbability();	// Updates core's Resonance Escape Proability
 	for (int i = 0; i < NumFactors; ++i) {
-		tmpDouble *= sixFactor[i];		// Calculates keff
+		tmpDouble *= sixFactor[i];								// Calculates keff
 	}	
-	this->keff = tmpDouble;				// Updates keff 
+	this->keff = tmpDouble;										// Updates keff 
 }
 
 double Core::ThermalUtilizationFactor() const {
@@ -103,7 +104,7 @@ double Core::ThermalUtilizationFactor() const {
 	}
 }
 
-double Core::CoreReproductionFactor() const {
+double Core::ReproductionFactor() const {
 	double totalNuSigmaF = 0.0;	// Running total of NuSigmaF of all fuel material 
 	double totalSigmaA = 0.0;	// Running total of SigmaA of all fuel material
 	for (const CoreMaterial& cm : this->coreMaterials) {
@@ -121,7 +122,31 @@ double Core::CoreReproductionFactor() const {
 	}
 }
 
-double Core::CoreSlowingDownPower() const {
+double Core::ResonanceEscapeProbability() const {
+
+	double N_U238 = 0.0;
+	double I = 0.0;
+	double sigmaS = 0.0;
+	double resonanceEscapeProbability = 0.0;
+
+	for (const CoreMaterial& cm : this->coreMaterials) {
+		N_U238 += cm.material.AtomDensity(Nuclides::U238.name) * cm.volumeFraction;
+		sigmaS += cm.material.SigmaS(Nuclides::U238.name) * cm.volumeFraction;
+	}
+
+	if (N_U238 == 0) {
+		return 1.0;
+	}
+	else {
+		I = 3.9 * std::pow((sigmaS / N_U238) / BARN_TO_CM2, 0.415);
+	}
+
+	resonanceEscapeProbability = std::exp((-N_U238 * I * BARN_TO_CM2) / SlowingDownPower());
+
+	return resonanceEscapeProbability;
+}
+
+double Core::SlowingDownPower() const {
 	double tmpDouble = 0.0;
 
 	for (const CoreMaterial& cm : this->coreMaterials) {

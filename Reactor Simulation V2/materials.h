@@ -74,6 +74,7 @@ public:
 	// Macroscopic Cross Sections (cm^-1)
 	double SigmaA() const;
 	double SigmaS() const;
+	double SigmaS(std::string nuclideName) const;
 	double SigmaF() const;
 	double NuSigmaF() const;
 

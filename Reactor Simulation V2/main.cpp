@@ -10,6 +10,7 @@ int main() {
 	Core core1;
 	Core core2;
 	Core core3;
+	Core core4;
 
 	core1.AddCoreMaterial(fuel, 1.0);
 	core2.AddCoreMaterial(fuel, 0.8);
@@ -17,6 +18,9 @@ int main() {
 	core3.AddCoreMaterial(fuel, 0.7);
 	core3.AddCoreMaterial(water, 0.2);
 	core3.AddCoreMaterial(boron, 0.1);
+	core4.AddCoreMaterial(water, 1.0);
+
+	std::cout << "Core 1: 100% Fuel | Core 2: 80% Fuel 20% Water | Core 3: 70% Fuel 20% Water 10% Boron | Core 4: 100% Water" << std::endl;
 
 	std::cout << "Thermal Utilization Calculations" << std::endl;
 	std::cout << "Core with only fuel: " << core1.ThermalUtilizationFactor() << std::endl;
@@ -24,12 +28,15 @@ int main() {
 	std::cout << "Core with fuel, water, and poison: " << core3.ThermalUtilizationFactor() << std::endl;
 	std::cout << std::endl << std::endl;
 	std::cout << "Reproduction Factor Comparisons. Fuel Reproduction Factor: "<< fuel.ReproductionFactor() << std::endl;
-	std::cout << "Core 1: " << core1.CoreReproductionFactor() << std::endl;
-	std::cout << "Core 2: " << core2.CoreReproductionFactor() << std::endl;
-	std::cout << "Core 3: " << core3.CoreReproductionFactor() << std::endl;
+	std::cout << "Core 1: " << core1.ReproductionFactor() << std::endl;
+	std::cout << "Core 2: " << core2.ReproductionFactor() << std::endl;
+	std::cout << "Core 3: " << core3.ReproductionFactor() << std::endl;
 	std::cout << std::endl << std::endl;
 	std::cout << water.GetName() << " slowing down power (cm^-1): " << water.SlowingDownPower() << std::endl;
-	std::cout << "Core 2 slowing down power: " << core2.CoreSlowingDownPower() << std::endl;
+	std::cout << "Core 2 slowing down power: " << core2.SlowingDownPower() << std::endl;
+	std::cout << std::endl << std::endl;
+	std::cout << "Core 4 Resonance Escape Probability: " << core4.ResonanceEscapeProbability() << std::endl;
+	std::cout << "Core 2 Resonance Escape Probability: " << core2.ResonanceEscapeProbability() << std::endl;
 
 	return 0;
 }

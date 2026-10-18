@@ -52,6 +52,8 @@ public:
 	void UpdateCore();
 
 	double ThermalUtilizationFactor() const;
-	double CoreReproductionFactor() const;
-	double CoreSlowingDownPower() const;
+	double ReproductionFactor() const;
+	double ResonanceEscapeProbability() const;
+
+	double SlowingDownPower() const;
 };

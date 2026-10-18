@@ -57,6 +57,17 @@ double Material::SigmaS() const {
 	return total;
 }
 
+double Material::SigmaS(std::string nuclideName) const {
+	double total = 0.0;
+	for (const Constituent& c : this->constituents) {
+		if (c.nuclide.name != nuclideName) {
+			total += c.atomDensity * c.nuclide.sigmaS * BARN_TO_CM2;
+		}
+	}
+
+	return total;
+}
+
 double Material::SigmaF() const {
 	double total = 0.0;
 	for (const Constituent& c : this->constituents) {
