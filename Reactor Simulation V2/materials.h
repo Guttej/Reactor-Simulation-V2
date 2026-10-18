@@ -41,6 +41,13 @@ enum class FractionType {
 	ByAtom		// Relative number of atoms, ie. H2O
 };
 
+enum class Role {
+	Fuel,
+	Moderator,
+	Poison,
+	Structure
+};
+
 struct Constituent {
 	Nuclide nuclide;
 	double amount;				// weight fraction or atom ratio
@@ -52,13 +59,15 @@ private:
 	std::string name;
 	double density;								// g/cm^3
 	std::vector<Constituent> constituents;
+	Role role;
 
 public:
-	Material(std::string n, double rho, std::vector<Constituent> parts, FractionType type = FractionType::ByWeight);
+	Material(std::string n, double rho, std::vector<Constituent> parts, Role r, FractionType type = FractionType::ByWeight);
 
 	// Getters
 	std::string GetName() const;
 	double GetDensity() const;
+	Role GetRole() const;
 
 	// Macroscopic Cross Sections (cm^-1)
 	double SigmaA() const;
@@ -71,4 +80,6 @@ public:
 	double MeanFreePathS() const;
 
 	double AtomDensity(std::string nuclideName) const;
+	double ReproductionFactor() const;
 };
+

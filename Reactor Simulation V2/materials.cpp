@@ -1,6 +1,6 @@
 #include "materials.h"
 // Constructors
-Material::Material(std::string n, double rho, std::vector<Constituent> parts, FractionType type) : name(n), density(rho), constituents(parts) {
+Material::Material(std::string n, double rho, std::vector<Constituent> parts, Role r, FractionType type) : name(n), density(rho), constituents(parts), role(r) {
 	if (type == FractionType::ByWeight) {
 		// N = amount * density * NA / Atomic Mass
 		for (Constituent& c : this->constituents) {
@@ -23,6 +23,8 @@ Material::Material(std::string n, double rho, std::vector<Constituent> parts, Fr
 std::string Material::GetName() const { return this->name; }
 
 double Material::GetDensity() const { return this->density; }
+
+Role Material::GetRole() const { return this->role; }
 
 // Macroscopic Cross Sections (cm^-1)
 double Material::SigmaA() const {
@@ -75,4 +77,13 @@ double Material::AtomDensity(std::string nuclideName) const {
 		}
 	}
 	return 0.0;
+}
+
+double Material::ReproductionFactor() const{
+	if (SigmaA() == 0) {
+		return 0.0;
+	}
+	else {
+		return NuSigmaF() / SigmaA();
+	}
 }
